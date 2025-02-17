@@ -1,0 +1,116 @@
+﻿<Window x:Class="WpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+    Title="Recipe Book" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Название приложения и кнопка профиля -->
+        <StackPanel Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <TextBlock Text="Recipe Book" FontSize="20" FontWeight="Bold" Margin="10"/>
+        </StackPanel>
+
+        <Button Content="Профиль" Grid.Column="1" Margin="10" Command="{Binding OpenProfileCommand}" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+
+        <!-- Поле поиска и категории -->
+        <StackPanel Grid.Row="1" Margin="10">
+            <StackPanel Orientation="Horizontal">
+                <TextBox Width="302" Height="30" 
+                         Text="{Binding SearchName, UpdateSourceTrigger=PropertyChanged}" 
+                         Margin="0,0,10,0"/>
+                <Button Content="Поиск" Width="70" Command="{Binding SearchByNameCommand}" Margin="0,0,0,0"/>
+            </StackPanel>
+
+            <!-- Изображения с кнопками категорий -->
+            <WrapPanel Margin="0,10,0,0">
+                <Button Width="150" Height="150" Margin="10" Command="{Binding LoadRecipesByTypeCommand}" CommandParameter="Завтрак">
+                    <Grid>
+                        <Image Source="pack://application:,,,/Resources/завтрак.jpg" Stretch="UniformToFill" />
+                        <TextBlock Text="Завтрак" 
+                                   HorizontalAlignment="Center" 
+                                   VerticalAlignment="Top" 
+                                   Foreground="White" 
+                                   FontWeight="Bold" 
+                                   Background="Black" 
+                                   Opacity="0.8" 
+                                   Padding="5" 
+                                   Margin="0,10,0,0"/>
+                    </Grid>
+                </Button>
+
+                <Button Width="150" Height="150" Margin="10" Command="{Binding LoadRecipesByTypeCommand}" CommandParameter="Обед">
+                    <Grid>
+                        <Image Source="pack://application:,,,/Resources/обед.jpg" Stretch="UniformToFill" />
+                        <TextBlock Text="Обед" 
+                                   HorizontalAlignment="Center" 
+                                   VerticalAlignment="Top" 
+                                   Foreground="White" 
+                                   FontWeight="Bold" 
+                                   Background="Black" 
+                                   Opacity="0.8" 
+                                   Padding="5" 
+                                   Margin="0,10,0,0"/>
+                    </Grid>
+                </Button>
+
+                <Button Width="150" Height="150" Margin="10" Command="{Binding LoadRecipesByTypeCommand}" CommandParameter="Ужин">
+                    <Grid>
+                        <Image Source="pack://application:,,,/Resources/ужин.jpg" Stretch="UniformToFill" />
+                        <TextBlock Text="Ужин" 
+                                   HorizontalAlignment="Center" 
+                                   VerticalAlignment="Top" 
+                                   Foreground="White" 
+                                   FontWeight="Bold" 
+                                   Background="Black" 
+                                   Opacity="0.8" 
+                                   Padding="5" 
+                                   Margin="0,10,0,0"/>
+                    </Grid>
+                </Button>
+
+                <Button Width="150" Height="150" Margin="10" Command="{Binding LoadRecipesByTypeCommand}" CommandParameter="Десерты">
+                    <Grid>
+                        <Image Source="pack://application:,,,/Resources/десерт.jpg" Stretch="UniformToFill" />
+                        <TextBlock Text="Десерты" 
+                                   HorizontalAlignment="Center" 
+                                   VerticalAlignment="Top" 
+                                   Foreground="White" 
+                                   FontWeight="Bold" 
+                                   Background="Black" 
+                                   Opacity="0.8" 
+                                   Padding="5" 
+                                   Margin="0,10,0,0"/>
+                    </Grid>
+                </Button>
+            </WrapPanel>
+
+            <!-- Список рецептов -->
+            <ListBox ItemsSource="{Binding AllRecipes}" Margin="0,10,0,0">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical">
+                            <Image Source="{Binding Image}" Height="100" />
+                            <TextBlock Text="{Binding Name}" FontWeight="Bold" />
+                            <Button Content="Подробнее" 
+                                    Command="{Binding DataContext.OpenRecipeCommand, RelativeSource={RelativeSource AncestorType=Window}}" 
+                                    CommandParameter="{Binding}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+    </Grid>
+</Window>
+

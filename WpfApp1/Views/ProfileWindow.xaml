@@ -1,0 +1,46 @@
+﻿<Window x:Class="WpfApp1.Views.ProfileWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1.Views"
+        mc:Ignorable="d"
+        Title="ProfileWindow" Height="450" Width="800">
+ 
+    <Grid>
+        <StackPanel Margin="20">
+            <TextBlock FontSize="24" FontWeight="Bold" Text="Профиль пользователя"/>
+
+            <TextBlock Text="Email:" Margin="0,10,0,0"/>
+            <TextBox x:Name="EmailTextBox" IsReadOnly="True" Margin="0,0,0,10" Text="{Binding Email}"/>
+
+            <TextBlock Text="Имя:"/>
+            <TextBox x:Name="NameTextBox" IsReadOnly="True" Margin="0,0,0,10" Text="{Binding Name}"/>
+
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <Button x:Name="EditButton" Content="Редактировать" Click="EditButton_Click" Width="120" Height="30" Margin="0,0,5,0"/>
+                <Button x:Name="CloseButton" Content="Закрыть" Click="CloseButton_Click" Width="120" Height="30"/>
+            </StackPanel>
+
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="Избранные рецепты:" Margin="0,0,10,0"/>
+                <Button x:Name="DeleteButton" Grid.Column="1" Content="Удалить выбранные" Click="DeleteButton_Click" Width="120" Height="30"/>
+            </Grid>
+
+            <ListBox x:Name="FavoriteRecipesListBox" ItemsSource="{Binding FavoriteRecipes}" SelectionMode="Multiple">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox Content="{Binding Name}" IsChecked="{Binding IsSelected, Mode=TwoWay}"/>
+                            <TextBlock Text="{Binding Description}" Margin="10,0,0,0"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+    </Grid>
+</Window>
